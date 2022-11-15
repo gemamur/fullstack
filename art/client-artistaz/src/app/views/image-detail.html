@@ -1,0 +1,78 @@
+<div *ngIf="identity">
+  <div class="loading" *ngIf="loading">
+    <img src="../../assets/images/loader.gif" />
+  </div>
+
+  <div *ngIf="image" class="image-box">
+    <p class="buttons">
+    <a [routerLink]="['/album', image.album._id]" class="btn btn-success"> Ir al album</a>
+    <a *ngIf="image.owner == identity._id" [routerLink]="['/editar-imagen', image._id]" class="btn btn-success"> Editar imagen</a>
+    <a *ngIf="image.owner == identity._id" (click)="onDeleteConfirm(image._id)" class="btn btn-danger"> Eliminar imagen</a>
+  </p>
+    <div class="seguro" *ngIf="confirmado == image._id">
+      <p>Se eliminará por completo (no se puede deshacer)</p>
+        <a (click)="onDeleteImage(image._id)" class="btn btn-danger"> Eliminar </a>
+        <a (click)="onCancelImage()" class="btn btn-success">Cancelar </a>
+    </div>
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-6 imagen">
+        <img class="imagen" src="{{api_url + image.picture}}" alt="{{image.title}}"/>
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{image.title}}</h3>
+          <p>{{image.description}}</p>
+        </section>
+
+        <section class="social">
+        <p>Comparte:</p>
+          <!--<button mat-raised-button shareButton="facebook" [sbShowCount]="true"><fa name="facebook" size="3x"></fa></button>
+
+          <button mat-raised-button shareButton="twitter" [sbShowCount]="true"><fa name="twitter" size="3x"></fa></button>-->
+          <share-buttons></share-buttons>
+        </section>
+        <section>
+          <p>Indica que te gusta este artículo:</p>
+          <a id="buttonfav" (click)="countFavorite(image._id, identity._id)" class="btn btn-success glyphicon glyphicon-star-empty" aria-label="favorite"> {{image.favorites}}</a>
+          <p></p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!identity">
+  <div class="loading" *ngIf="loading">
+    <img src="../../assets/images/loader.gif" />
+  </div>
+
+  <div *ngIf="image" class="image-box">
+    <p class="buttons">
+    <a [routerLink]="['/album', image.album._id]" class="btn btn-success"> Ir al album</a>
+  </p>
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-6 imagen">
+        <img class="imagen" src="{{api_url + image.picture}}" alt="{{image.title}}"/>
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{image.title}}</h3>
+          <p>{{image.description}}</p>
+        </section>
+
+        <section class="social">
+        <p>Comparte:</p>
+          <button mat-raised-button shareButton="facebook" [sbShowCount]="true"><fa name="facebook" size="3x"></fa></button>
+
+          <button mat-raised-button shareButton="twitter" [sbShowCount]="true"><fa name="twitter" size="3x"></fa></button>
+        </section>
+        <section>
+          <p>Indica que te gusta este artículo:</p>
+          <div id="buttonfav" (click)="registrado()" class="btn btn-success glyphicon glyphicon-star-empty" aria-label="favorite"> {{image.favorites}}</div>
+          <p></p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div>

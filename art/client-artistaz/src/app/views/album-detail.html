@@ -1,0 +1,72 @@
+<div *ngIf="identity">
+
+  <div class="loading" *ngIf="loading">
+    <img src="../../assets/images/loader.gif" />
+  </div>
+  <div *ngIf="album" class="album-box container-fluid">
+    <div class="data-rest">
+      <div class="row">
+      <div class="col-sm-5 col-md-6">
+          <h1>Album: {{album.title}}</h1>
+          <p class="description">{{album.description}}</p>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+          <button (click)="AlbumBack()" class="btn btn-success btn-album">Volver</button>
+          <button [routerLink]="['/user/albums', album.owner]" class="btn btn-success btn-album" >Álbumes del usuario</button>
+          <button [routerLink]="['/albums']" class="btn btn-success btn-album" >Todos los álbumes</button>
+          <button *ngIf="album.owner == identity._id" [routerLink]="['/crear-imagen', album._id]" class="btn btn-success btn-album"> Añadir Fotos </button>
+        </div>
+      </div>
+  <div id="gallery-images" *ngIf="images">
+      <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let image of images">
+          <div class="thumbnail image-item">
+            <img src="{{api_url + image.picture}}" alt="{{image.title}}">
+            <div class="caption">
+              <h3>{{image.title}}</h3>
+              <p>{{(image.description | slice:0:50)+'...'}}</p>
+              <p><a [routerLink]="['/imagen', image._id]" class="btn btn-success" role="button">Detalles</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!identity">
+  <div class="loading" *ngIf="loading">
+    <img src="../../assets/images/loader.gif" />
+  </div>
+  <div *ngIf="album" class="album-box container-fluid">
+    <div class="data-rest">
+      <div class="row">
+      <div class="col-sm-5 col-md-6">
+          <h1>Album: {{album.title}}</h1>
+          <p class="description">{{album.description}}</p>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+          <button (click)="AlbumBack()" class="btn btn-success btn-album">Volver</button>
+          <button [routerLink]="['/user/albums', album.owner]" class="btn btn-success btn-album" >Álbumes del usuario</button>
+          <button [routerLink]="['/albums']" class="btn btn-success btn-album" >Todos los álbumes</button>
+        </div>
+      </div>
+  <div id="gallery-images" *ngIf="images">
+      <div class="row">
+        <div class="col-sm-6 col-md-4" *ngFor="let image of images">
+          <div class="thumbnail image-item">
+            <img src="{{api_url + image.picture}}" alt="{{image.title}}">
+            <div class="caption">
+              <h3>{{image.title}}</h3>
+              <p>{{(image.description | slice:0:50)+'...'}}</p>
+              <p><a [routerLink]="['/imagen', image._id]" class="btn btn-success" role="button">Detalles</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>

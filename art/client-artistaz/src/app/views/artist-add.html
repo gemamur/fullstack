@@ -1,0 +1,45 @@
+<div class="form-content">
+<h2>{{tituloArtistAdd}}</h2>
+<div class="clearfix"></div>
+    <div *ngIf="alertMessage">
+      <div class="alert alert-info">
+        {{alertMessage}}
+      </div>
+    </div>
+<div class="jumbotron jumboform">
+<form #formArtistAdd = "ngForm" (ngSubmit)="onSubmit()" class="form-horizontal col-md-6">
+
+  <div class="form-group">
+    <label for="inputName" class="col-sm-4 control-label">Nombre</label>
+    <div class="col-sm-8">
+      <input type="text" #name="ngModel" [(ngModel)]="artist.name" name="name" class="form-control" id="inputName" placeholder="Nombre" required />
+    </div>
+    <span *ngIf="!name.valid && name.touched">El campo nombre es obligatorio</span>
+  </div>
+  <div class="form-group">
+    <label for="inputDescription" class="col-sm-4 control-label">Descripción</label>
+    <div class="col-sm-8">
+      <textarea #description="ngModel" [(ngModel)]="artist.description" name="description" class="form-control" placeholder="Descripción" required ></textarea>
+    </div>
+    <span *ngIf="!description.valid && description.touched">El campo descripción es obligatorio</span>
+  </div>
+
+  <div *ngIf="is_edit">
+    <div class="artist_image_for_edit" *ngIf="artist.image && artist.image != 'null'">
+      <img src="{{url + 'get-image-artist/'+artist.image}}" />
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Sube la imagen del artista</label>
+      <input type="file" placeholder="Subir imagen..." (change)="fileChangeEvent($event)" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success" [disabled]="!formArtistAdd.form.valid">{{tituloArtistAdd}}</button>
+    </div>
+  </div>
+
+</form>
+</div>
+</div>

@@ -1,0 +1,45 @@
+
+<div class="form-content">
+<h2>{{titleAddAlbum}}</h2>
+<div class="clearfix"></div>
+    <div *ngIf="alertMessage">
+      <div class="alert alert-info">
+        {{alertMessage}}
+      </div>
+    </div>
+<div class="jumbotron jumboform">
+<form #formAlbum = "ngForm" (ngSubmit)="onSubmit()" class="form-horizontal col-md-6">
+
+  <div class="form-group">
+    <label for="inputName" class="col-sm-4 control-label">Nombre</label>
+    <div class="col-sm-8">
+      <input type="text" #title="ngModel" name="title" [(ngModel)]="album.title"  placeholder="Nombre" class="form-control" required />
+    </div>
+    <span *ngIf="!title.valid && title.touched">El nombre es obligatorio</span>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-4 control-label">Descripción</label>
+    <div class="col-sm-8">
+      <textarea #description="ngModel" name="description" [(ngModel)]="album.description" placeholder="Descripción" class="form-control" required></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-4 control-label">Categoría</label>
+    <div class="col-sm-8">
+      <select class="form-control" id="cat" #cat="ngModel" [(ngModel)]="album.cat" name="cat" required>
+        <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+      </select>
+      <div class="help-block">Selecciona una categoría.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-success" value={{titleAddAlbum}} [disabled]="!formAlbum.form.valid" />
+    </div>
+  </div>
+</form>
+<div class="clearfix"></div>
+<div></div>
+</div>
+</div>

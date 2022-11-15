@@ -1,0 +1,68 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header cabecera">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand-logo" [routerLink]="['/']">Artistaz</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div *ngIf="!identity">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="cabecera-left">
+        <ul class="nav navbar-nav navbar-left cabecera">
+          <li><a [routerLink]="['/artistas','1']">Grupos musicales</a></li>
+          <li><a [routerLink]="['/albums']">Galerías</a></li>
+          <li><a [routerLink]="['/users']">Usuarios</a></li>
+        </ul>
+      </div>
+        <ul class="nav navbar-nav navbar-right cabecera">
+          <li><a [routerLink]="['/login']">Acceder</a></li>
+          <li><a [routerLink]="['/register']">Registro</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+    <div *ngIf="identity">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="cabecera-left">
+        <ul class="nav navbar-nav navbar-left cabecera">
+          <li><a [routerLink]="['/artistas','1']">Grupos musicales</a></li>
+          <li><a [routerLink]="['/albums']">Galerías</a></li>
+          <li><a [routerLink]="['/users']">Usuarios</a></li>
+        </ul>
+      </div>
+        <ul class="nav navbar-nav navbar-right cabecera">
+          <!--<li><a [routerLink]="['/artistas','1']" [routerLinkActive]="['actived']">Artistas</a></li>-->
+          <li><a href="#">Link</a></li>
+          <li class="dropdown">
+            <div class="user_image">
+              <img id="userimg" src="{{url +'get-image-user/' +identity.image}}" />
+            </div>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="identity_name">{{identity.name}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a [routerLink]="['/user', identity._id]">Ver perfil</a></li>
+            <li><a [routerLink]="['/actualizar-usuario']">Actualizar perfil</a></li>
+            <li><a [routerLink]="['/user/albums', identity._id]">Mi galería de imágenes</a></li>
+            <li><a [routerLink]="['/user/music', identity._id]">Mi galería de música</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a (click)="logout()" class="btn-logout">Salir</a></li>
+          </ul>
+        </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </div><!-- /.container-fluid -->
+  <div class="clearfix"></div>
+</nav>
+
+<section class="main">
+<router-outlet></router-outlet>
+</section>
+
+<div class="clearfix"></div>
+<player class="player"></player>

@@ -1,0 +1,49 @@
+import { NgModule } from '@angular/core';
+import { JsonpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
+import { ShareButtonsComponent } from './components/share-buttons/share-buttons.component';
+import { ShareButtonComponent } from './components/share-button/share-button.component';
+import { ShareButtonDirective } from './directives/share-button/share-button.directive';
+import { ShareButtonsService } from './services/share-buttons.service';
+import { WindowService } from './services/window.service';
+import { NFormatterPipe } from './helpers/n-formatter.pipe';
+import { ShareButton, ShareArgs, ShareProvider } from './helpers/index';
+var ShareButtonsModule = (function () {
+    function ShareButtonsModule() {
+    }
+    ShareButtonsModule.forRoot = function () {
+        return {
+            ngModule: ShareButtonsModule,
+            providers: [
+                ShareButtonsService,
+                WindowService
+            ]
+        };
+    };
+    return ShareButtonsModule;
+}());
+export { ShareButtonsModule };
+ShareButtonsModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    ShareButtonsComponent,
+                    ShareButtonComponent,
+                    ShareButtonDirective,
+                    NFormatterPipe
+                ],
+                imports: [
+                    CommonModule,
+                    JsonpModule
+                ],
+                exports: [
+                    ShareButtonsComponent,
+                    ShareButtonComponent,
+                    ShareButtonDirective,
+                    NFormatterPipe
+                ]
+            },] },
+];
+/** @nocollapse */
+ShareButtonsModule.ctorParameters = function () { return []; };
+export { ShareButtonsComponent, ShareButtonComponent, ShareButtonDirective, ShareButton, NFormatterPipe, ShareButtonsService, ShareArgs, ShareProvider };
+//# sourceMappingURL=share-buttons.module.js.map

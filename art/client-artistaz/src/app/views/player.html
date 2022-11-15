@@ -1,0 +1,29 @@
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <div class="album-image">
+    <span *ngIf="!song.albumdisc">
+      <a href="https://www.freepik.com"><img id="play-image-album" src="../../assets/images/default.jpg" alt="image designed by freepik"/></a>
+    </span>
+    <span *ngIf="song.albumdisc">
+      <a [routerLink]="['/albumdisc',song.albumdisc._id]"><img id="play-image-album" src="{{url + 'get-image-albumdisc/' + song.albumdisc.image}}" alt ="Disco {{song.albumdisc.name}}"/></a>
+    </span>
+
+  </div>
+
+  <div class="audio-file">
+    <p>Reproduciendo...</p>
+    <span id="play-song-title">
+      {{song.name}}
+    </span>
+    |
+    <span id="artist">
+      <span *ngIf="song.albumdisc.artist">
+        {{song.albumdisc.artist.name}}
+      </span>
+    </span>
+  </div>
+
+  <audio controls id="player">
+    <source id="mp3-source" src="{{url + 'get-song/' + song.file}}" type="audio/mpeg" />
+    Tu navegador no es compatible con HTML5
+  </audio>
+</div>

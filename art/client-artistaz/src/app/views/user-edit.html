@@ -1,0 +1,77 @@
+<div class="form-content">
+  <div class="col-lg-6 form-content-update" *ngIf="identity">
+    <h2>{{titleUserEdit}}</h2>
+  </div>
+
+<div class="clearfix"></div>
+
+<div *ngIf="alertMessage">
+  <div class="alert alert-info">
+    {{alertMessage}}
+  </div>
+</div>
+<form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="form-horizontal col-md-6">
+  <div class="form-group">
+    <label for="inputNombre" class="col-sm-4 control-label">Nombre</label>
+    <div class="col-sm-8">
+      <input type="text" #name="ngModel" [(ngModel)]="user.name" name="name" class="form-control" id="inputNombre" placeholder="Nombre" required />
+    </div>
+    <span *ngIf="!name.valid && name.touched">El campo nombre es obligatorio</span>
+  </div>
+  <div class="form-group">
+    <label for="inputApellidos" class="col-sm-4 control-label">Apellidos</label>
+    <div class="col-sm-8">
+      <input type="text" #surname="ngModel" [(ngModel)]="user.surname" name="surname" class="form-control" id="inputApellidos" placeholder="Apellidos" required />
+    </div>
+    <span *ngIf="!surname.valid && surname.touched">El campo apellidos es obligatorio</span>
+  </div>
+  <!--<div class="form-group">
+    <label for="inputUsuario" class="col-sm-4 control-label">Nombre de usuario</label>
+    <div class="col-sm-8">
+      <input type="text" #nick="ngModel" [(ngModel)]="user.nick" name="nick" class="form-control" id="inputNick" placeholder="Nombre de usuario" required />
+    </div>
+    <span *ngIf="!nick.valid && nick.touched">El campo usuario es obligatorio</span>
+  </div>-->
+  <div class="form-group">
+    <label for="inputBio" class="col-sm-4 control-label">Algo sobre tí</label>
+    <div class="col-sm-8">
+      <textarea #bio="ngModel" [(ngModel)]="user.bio" name="bio" class="form-control" id="inputBio" placeholder="Biografía"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputWebsite" class="col-sm-4 control-label">Web / Blog</label>
+    <div class="col-sm-8">
+      <input type="text" #website="ngModel" [(ngModel)]="user.website" name="website" class="form-control" id="inputWebsite" placeholder="Web / Blog" />
+    </div>
+    <span *ngIf="!nick.valid && nick.touched">El campo usuario es obligatorio</span>
+  </div>
+  <!--<div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label">Email</label>
+    <div class="col-sm-8">
+      <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel" [(ngModel)]="user.email" name="email" class="form-control" id="email" placeholder="Email" required />
+    </div>
+    <span *ngIf="!email.valid && email.touched">El campo email es obligatorio</span>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-4 control-label">Contraseña</label>
+    <div class="col-sm-8">
+      <input type="password" #password="ngModel" [(ngModel)]="user.password" name="password" class="form-control" id="inputPassword4" placeholder="Contraseña" required />
+    </div>
+    <span *ngIf="!password.valid && password.touched">El campo contraseña es obligatorio</span>
+  </div>-->
+  <div class="image_for_edit" *ngIf="user.image && user.image != 'null'">
+    <img src="{{url +'get-image-user/' +user.image}}" />
+  </div>
+  <div class="form-group">
+    <label for="image_for_edit" class="col-sm-4 control-label">Sube tu foto: </label>
+    <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)" />
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success">Actualizar</button>
+    </div>
+  </div>
+
+</form>
+</div>

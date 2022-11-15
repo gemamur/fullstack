@@ -1,0 +1,92 @@
+<div *ngIf="identity">
+  <div *ngIf="artist" class="image-box">
+    <div class="buttons">
+      <a class="btn btn-success btn-album" [routerLink]="['/user',artist.owner]">Usuario</a>
+      <a (click)="Back()" class="btn btn-success btn-album">Volver</a>
+      <a [routerLink]="['/artistas/', 1]" class="btn btn-success pull-right"> Ver todos</a>
+      <div *ngIf="artist.owner == identity._id" class="admin-artist">
+        <a [routerLink]="['/crear-disc', artist._id]" class="btn btn-success">Añadir disco</a>
+        <a [routerLink]="['/editar-artista', artist._id]" class="btn btn-success"> Editar</a>
+        <a (click)="onDeleteConfirm(artist._id)" class="btn btn-danger"> Eliminar</a>
+      </div>
+    </div>
+      <div class="seguro" *ngIf="confirmado == artist._id">
+        <p>Se eliminará por completo (no se puede deshacer)</p>
+          <a (click)="onDeleteArtist(artist._id)" class="btn btn-danger"> Eliminar </a>
+          <a (click)="onCancelArtist()" class="btn btn-success">Cancelar </a>
+      </div>
+
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-4 imagen">
+        <img class="imagen" src="{{url + 'get-image-artist/'+artist.image}}" alt="{{artist.title}}"/>
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{artist.name}}</h3>
+          <p class="desc">{{artist.description}}</p>
+        </section>
+  <div class="clearfix"></div>
+
+        <!--<section class="social">
+          <button mat-raised-button shareButton="facebook" [sbShowCount]="true"><fa name="facebook" size="3x"></fa></button>
+
+          <button mat-raised-button shareButton="twitter" [sbShowCount]="true"><fa name="twitter" size="3x"></fa></button>
+        </section>-->
+      </div>
+    </div>
+  </div>
+  <section class="albums" *ngIf="albumdiscs">
+    <h4>Discografía</h4>
+        <div class="row">
+          <div class="col-sm-6 col-md-2 col-lg-2" *ngFor="let albumdisc of albumdiscs">
+            <div class="thumbnail">
+              <img src="{{url + 'get-image-albumdisc/'+albumdisc.image}}" alt="{{albumdisc.name}}"/>
+              <div class="caption">
+                <h5><a [routerLink]="['/albumdisc',albumdisc._id]">{{albumdisc.name}}</a></h5>
+                <h6>{{albumdisc.year}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+</div>
+<div *ngIf="!identity">
+  <div *ngIf="artist" class="image-box">
+    <div class="buttons">
+      <a class="btn btn-success btn-album" [routerLink]="['/user',artist.owner]">Usuario</a>
+      <a (click)="Back()" class="btn btn-success btn-album">Volver</a>
+      <a [routerLink]="['/artistas/', 1]" class="btn btn-success pull-right"> Ver todos</a>
+
+    </div>
+
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-4 imagen">
+        <img class="imagen" src="{{url + 'get-image-artist/'+artist.image}}" alt="{{artist.title}}"/>
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{artist.name}}</h3>
+          <p class="desc">{{artist.description}}</p>
+        </section>
+  <div class="clearfix"></div>
+  
+      </div>
+    </div>
+  </div>
+  <section class="albums" *ngIf="albumdiscs">
+    <h4>Discografía</h4>
+        <div class="row">
+          <div class="col-sm-6 col-md-2 col-lg-2" *ngFor="let albumdisc of albumdiscs">
+            <div class="thumbnail">
+              <img src="{{url + 'get-image-albumdisc/'+albumdisc.image}}" alt="{{albumdisc.name}}"/>
+              <div class="caption">
+                <h5><a [routerLink]="['/albumdisc',albumdisc._id]">{{albumdisc.name}}</a></h5>
+                <h6>{{albumdisc.year}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+</div>

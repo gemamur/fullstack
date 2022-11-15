@@ -1,0 +1,100 @@
+<div *ngIf="identity">
+  <div *ngIf="albumdisc" class="image-box">
+    <div class="buttons">
+      <a [routerLink]="['/artista/', albumdisc.artist._id]" class="btn btn-success pull-right"> Volver a {{albumdisc.artist.name}}</a>
+      <div *ngIf="albumdisc.artist.owner == identity._id" class="admin-albumdisc">
+        <a [routerLink]="['/crear-track', albumdisc._id]" class="btn btn-success">Añadir canción</a>
+        <a [routerLink]="['/editar-disc', albumdisc._id]" class="btn btn-success"> Editar Disco</a>
+        <a (click)="onDeleteConfirm(albumdisc._id)" class="btn btn-danger"> Eliminar Disco</a>
+      </div>
+    </div>
+      <div class="seguro" *ngIf="confirmado == albumdisc._id">
+        <p>Se eliminará por completo (no se puede deshacer)</p>
+          <a (click)="onDeleteAlbumdisc(albumdisc._id)" class="btn btn-danger"> Eliminar </a>
+          <a (click)="onCancelAlbumdisc()" class="btn btn-success">Cancelar </a>
+      </div>
+
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-4 imagen">
+        <img class="imagen" src="{{url + 'get-image-albumdisc/'+ albumdisc.image}}" alt="{{albumdisc.title}}"/>
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{albumdisc.name}} <small>{{albumdisc.artist.name}} ({{albumdisc.year}})</small></h3>
+          <p>{{albumdisc.description}}</p>
+        </section>
+        <section class="social">
+        <p>Comparte:</p>
+          <share-buttons></share-buttons>
+        </section>
+  <div class="clearfix"></div>
+
+        <div class="tracklist" *ngIf="songs">
+            <div *ngFor="let song of songs" class="container-fluid song-item">
+              <div class="col-sm-5 col-md-8 title">
+                <a class="btn btn-primary" (click)="startPlayer(song)">
+                  <span class="glyphicon glyphicon-play" aria-hidden="true" aria-label="play"></span>
+                </a>
+                {{song.number + '. ' + song.name + ' - ' + song.duration}}
+                </div>
+                <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0 track">
+                  <a *ngIf="albumdisc.artist.owner == identity._id" [routerLink]="['/editar-track/', song._id]" class="btn btn-success">Editar</a>
+                  <a *ngIf="albumdisc.artist.owner == identity._id" (click)="onDeleteConfirm(song._id)" class="btn btn-danger">Eliminar</a>
+                  <a id="buttonfavsong{{this.song._id}}" (click)="songFavorite(song._id, identity._id)" class="btn btn-success glyphicon glyphicon-star-empty" aria-label="favorite"> {{song.favorites}}</a>
+                </div>
+                  <div class="seguro" *ngIf="confirmado == song._id">
+                    <p>Se eliminará completamente "{{song.name}}" (no se puede deshacer)</p>
+                  <a (click)="onCancelSong()" class="btn btn-success">Cancelar</a>
+                  <a (click)="onDeleteSong(song._id)" class="btn btn-danger">Eliminar</a>
+                  </div>
+                  <div class="clearfix"></div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!identity">
+  <div *ngIf="albumdisc" class="image-box">
+    <div class="buttons">
+      <a [routerLink]="['/artista/', albumdisc.artist._id]" class="btn btn-success pull-right"> Volver a {{albumdisc.artist.name}}</a>
+    </div>
+
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-4 imagen">
+        <img class="imagen" src="{{url + 'get-image-albumdisc/'+ albumdisc.image}}" alt="{{albumdisc.title}}"/>
+
+
+      </div>
+      <div class="col-sm-5 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <section class="detallesimg">
+          <h3>{{albumdisc.name}} <small>{{albumdisc.artist.name}} ({{albumdisc.year}})</small></h3>
+          <p>{{albumdisc.description}}</p>
+        </section>
+        <section class="social">
+        <p>Comparte:</p>
+          <share-buttons></share-buttons>
+        </section>
+  <div class="clearfix"></div>
+
+        <div class="tracklist" *ngIf="songs">
+            <div *ngFor="let song of songs" class="container-fluid song-item">
+              <div class="col-sm-5 col-md-8 title">
+                <a class="btn btn-primary" (click)="startPlayer(song)">
+                  <span class="glyphicon glyphicon-play" aria-hidden="true" aria-label="play"></span>
+                </a>
+                {{song.number + '. ' + song.name + ' - ' + song.duration}}
+                </div>
+                <div class="col-sm-5 col-sm-offset-2 col-md-4 col-md-offset-0 track">
+                  <div id="buttonfavsong{{this.song._id}}" (click)="registrado()" class="btn btn-success glyphicon glyphicon-star-empty" aria-label="favorite"> {{song.favorites}}</div>
+                </div>
+                  <div class="clearfix"></div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,105 @@
+<div *ngIf="identity">
+  <div class="image-box">
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-2 imagen">
+        <ul class="nav nav-pills nav-stacked menu-lateral">
+          <li id="lidatos-user" role="presentation" class="text-center"><a [routerLink]="['/user/',user._id]"><i class="user-icon glyphicon glyphicon-user"></i><p>Datos de usuario</p></a></li>
+          <li id="ligallery" role="presentation" class="text-center"><a [routerLink]="['/user/gallery/',user._id]"><i class="user-icon glyphicon glyphicon-picture"></i><p>Galería</p></a></li>
+          <li id="lialbums" role="presentation" class="active text-center"><a [routerLink]="['/user/albums/',user._id]"><i class="user-icon glyphicon glyphicon-book"></i><p>Álbumes</p></a></li>
+          <li id="limusic" role="presentation" class="text-center"><a [routerLink]="['/user/music/',user._id]"><i class="user-icon glyphicon glyphicon-cd"></i><p>Música</p></a></li>
+          <!--<li id="lievents" role="presentation"><a>Eventos</a></li>-->
+        </ul>
+      </div>
+
+      <section class="datos-user">
+        <div *ngIf="user" class="col-sm-12 col-sm-offset-2 col-md-6 col-md-offset-0">
+          <h3>Álbumes de <strong>{{user.nick}}</strong></h3>
+        </div>
+        <div class="col-sm-12 col-sm-offset-2 col-md-3 col-md-offset-0">
+          <a *ngIf="identity" class="btn btn-primary btn-album crear-album-btn" [routerLink]="['/crear-album']"> Crear Album </a>
+        </div>
+      </section>
+
+      <div class="col-sm-6 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <div *ngIf="albums.length>0">
+          <section>
+          <ul id="albums-list">
+            <li *ngFor="let album of albums" class="album-item col-md-6 col-sm-6 col-sm-offset-2 col-md-offset-0">
+                <h4>{{album.title}}</h4>
+                <p>{{album.description}}</p>
+                <p>Categoría: {{album.cat}}</p>
+
+                <p class="buttons">
+                  <button type="button" [routerLink]="['/album',album._id]" class= "btn btn-success"> Ver album </button>
+                  <button *ngIf="album.owner._id == identity._id" type="button" [routerLink]="['/crear-imagen', album._id]"  class= "btn btn-success"> Añadir fotos </button>
+                  <button *ngIf="album.owner._id == identity._id" type="button" [routerLink]="['/editar-album', album._id]" class= "btn btn-success"> Editar </button>
+                  <button *ngIf="album.owner._id == identity._id" (click)="onDeleteConfirm(album._id)" class= "btn btn-danger"> Eliminar </button>
+                </p>
+                <div class="seguro" *ngIf="confirmado == album._id">
+                  <p>Se eliminará el album completo</p>
+                    <a (click)="onDeleteAlbum(album._id)" class="btn btn-danger"> Eliminar </a>
+                    <a (click)="onCancelAlbum()" class="btn btn-success">Cancelar </a>
+                </div>
+            </li>
+          </ul>
+
+        </section>
+      </div>
+      <div *ngIf="albums.length<=0">
+        <div class="alert alert-info" role="alert">El usuario no tiene álbumes asociados</div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="!identity">
+  <div class="image-box">
+    <div class="container-fluid">
+      <div class="col-sm-5 col-md-2 imagen">
+        <ul class="nav nav-pills nav-stacked menu-lateral">
+          <li id="lidatos-user" role="presentation" class="text-center"><a [routerLink]="['/user/',user._id]"><i class="user-icon glyphicon glyphicon-user"></i><p>Datos de usuario</p></a></li>
+          <li id="ligallery" role="presentation" class="text-center"><a [routerLink]="['/user/gallery/',user._id]"><i class="user-icon glyphicon glyphicon-picture"></i><p>Galería</p></a></li>
+          <li id="lialbums" role="presentation" class="active text-center"><a [routerLink]="['/user/albums/',user._id]"><i class="user-icon glyphicon glyphicon-book"></i><p>Álbumes</p></a></li>
+          <li id="limusic" role="presentation" class="text-center"><a [routerLink]="['/user/music/',user._id]"><i class="user-icon glyphicon glyphicon-cd"></i><p>Música</p></a></li>
+          <!--<li id="lievents" role="presentation"><a>Eventos</a></li>-->
+        </ul>
+      </div>
+      <section class="datos-user">
+        <div *ngIf="user" class="col-sm-12 col-sm-offset-2 col-md-6 col-md-offset-0">
+          <h3>Álbumes de <strong>{{user.nick}}</strong></h3>
+        </div>
+        <div class="col-sm-12 col-sm-offset-2 col-md-3 col-md-offset-0">
+          <a class="btn btn-primary btn-album" (click)="registrado()"> Crear Album </a>
+        </div>
+      </section>
+
+      <div class="col-sm-6 col-sm-offset-2 col-md-8 col-md-offset-0">
+        <div *ngIf="albums.length>0">
+          <section>
+          <ul id="albums-list">
+            <li *ngFor="let album of albums" class="album-item col-md-6 col-sm-6 col-sm-offset-2 col-md-offset-0">
+              <div class="content-data">
+                <div *ngFor="let image of imagesAlbum">
+                    <img class="imagen" src="{{url + 'get-image/' + image.picture}}" alt="{{image.title}}"/>
+                </div>
+                <h4>{{album.title}}</h4>
+                <p>{{album.description}}</p>
+                <p>Categoría: {{album.cat}}</p>
+
+                <p class="buttons">
+                  <button type="button" [routerLink]="['/album',album._id]" class= "btn btn-success"> Ver album </button>
+                </p>
+                </div>
+            </li>
+          </ul>
+
+        </section>
+      </div>
+      <div *ngIf="albums.length<=0">
+        <div class="alert alert-info" role="alert">El usuario no tiene álbumes asociados</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

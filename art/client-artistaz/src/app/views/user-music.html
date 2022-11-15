@@ -1,0 +1,34 @@
+<div class="image-box">
+  <div class="container-fluid">
+    <div class="col-sm-5 col-md-2 imagen">
+      <ul class="nav nav-pills nav-stacked menu-lateral">
+        <li id="lidatos-user" role="presentation" class="text-center"><a [routerLink]="['/user/',user._id]"><i class="user-icon glyphicon glyphicon-user"></i><p>Datos de usuario</p></a></li>
+        <li id="ligallery" role="presentation" class="text-center"><a [routerLink]="['/user/gallery/',user._id]"><i class="user-icon glyphicon glyphicon-picture"></i><p>Galería</p></a></li>
+        <li id="lialbums" role="presentation" class="text-center"><a [routerLink]="['/user/albums/',user._id]"><i class="user-icon glyphicon glyphicon-book"></i><p>Álbumes</p></a></li>
+        <li id="limusic" role="presentation" class="active text-center"><a [routerLink]="['/user/music/',user._id]"><i class="user-icon glyphicon glyphicon-cd"></i><p>Música</p></a></li>
+        <!--<li id="lievents" role="presentation"><a>Eventos</a></li>-->
+      </ul>
+    </div>
+    <div *ngIf="artists.length > 0" class="col-sm-6 col-sm-offset-2 col-md-8 col-md-offset-0">
+      <section class="datos-user">
+        <h3>Grupos musicales de <strong>{{user.nick}}</strong></h3>
+        <div class="row col-sm-12 col-md-12" *ngFor="let artist of artists">
+              <div class="thumbnail image-item">
+                <img src="{{url + 'get-image-artist/'+artist.image}}" alt="{{artist.name}}">
+                <div class="caption">
+                  <h3><a [routerLink]="['/artista/',artist._id]">{{artist.name}}</a></h3>
+                  <p>{{artist.description}}</p>
+
+                </div>
+              </div>
+          </div>
+      </section>
+    </div>
+    <div *ngIf="artists.length == 0" class="col-sm-6 col-sm-offset-2 col-md-8 col-md-offset-0">
+      <section class="datos-user">
+        <h3>Grupos musicales de <strong>{{user.nick}}</strong></h3>
+        <div class="alert alert-info" role="alert">El usuario no tiene artistas musicales asociados</div>
+      </section>
+    </div>
+  </div>
+</div>

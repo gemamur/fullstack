@@ -1,0 +1,52 @@
+<div class="form-content">
+<h2>{{tituloAlbumdiscAdd}}</h2>
+<div class="clearfix"></div>
+    <div *ngIf="alertMessage">
+      <div class="alert alert-info">
+        {{alertMessage}}
+      </div>
+    </div>
+<div class="jumbotron jumboform">
+<form #formAlbumdiscAdd = "ngForm" (ngSubmit)="onSubmit()" class="form-horizontal col-md-6">
+
+  <div class="form-group">
+    <label for="inputName" class="col-sm-4 control-label">Nombre / Título</label>
+    <div class="col-sm-8">
+      <input type="text" #name="ngModel" [(ngModel)]="albumdisc.name" name="name" class="form-control" placeholder="Nombre" required />
+    </div>
+    <span *ngIf="!name.valid && name.touched">El título del disco es obligatorio</span>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-4 control-label">Descripción</label>
+    <div class="col-sm-8">
+      <textarea #description="ngModel" [(ngModel)]="albumdisc.description" name="description" class="form-control" placeholder="Descripción" ></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputName" class="col-sm-4 control-label">Año de publicación</label>
+    <div class="col-sm-8">
+      <input type="text" #year="ngModel" [(ngModel)]="albumdisc.year" name="year" class="form-control" placeholder="Año" required />
+    </div>
+    <span *ngIf="!year.valid && year.touched">El campo año es obligatorio</span>
+  </div>
+
+  <div *ngIf="is_edit">
+    <div class="albumdisc_image_for_edit" *ngIf="albumdisc.image && albumdisc.image != 'null'">
+      <img src="{{url + 'get-image-albumdisc/'+albumdisc.image}}" />
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Sube la portada del disco</label>
+      <input type="file" placeholder="Subir imagen..." (change)="fileChangeEvent($event)" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success" [disabled]="!formAlbumdiscAdd.form.valid">{{tituloAlbumdiscAdd}}</button>
+    </div>
+  </div>
+</form>
+<div class="clearfix"></div>
+<div></div>
+</div>
+</div>

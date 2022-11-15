@@ -1,0 +1,80 @@
+<div>
+  <div *ngIf="images" class="col-sm-12 col-md-12">
+<p>Últimas imágenes añadidas</p>
+<div class="row">
+  <div class="col-sm-6 col-md-2" *ngFor="let image of images">
+    <div class="thumbnail image-item-home">
+      <a [routerLink]="['/album', image.album._id]"><img src="{{api_url + 'get-image/' + image.picture}}" alt="{{image.title}}"></a>
+      <div class="caption">
+        <h3><a [routerLink]="['/imagen', image._id]">{{image.title}}</a></h3>
+        <p><a [routerLink]="['/album', image.album._id]">{{image.album.title}}</a> -
+        <a [routerLink]="['/user', image.album.owner._id]">{{image.album.owner.nick}}</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2 col-md-2">
+    <ng2-adsense></ng2-adsense>
+  </div>
+</div>
+  </div>
+  <div *ngIf="favimages" class="col-sm-12 col-md-12">
+<p>Imágenes más votadas</p>
+<div class="row">
+  <div class="col-sm-6 col-md-2" *ngFor="let favimage of favimages">
+    <div class="thumbnail image-item-favhome">
+      <a [routerLink]="['/imagen', favimage._id]"><img src="{{api_url + 'get-image/' + favimage.picture}}" alt="{{favimage.title}}"></a>
+      <div class="caption">
+        <a [routerLink]="['/imagen', favimage._id]"><h3>{{favimage.title}}</h3></a>
+        <p><a [routerLink]="['/album', favimage.album._id]">{{favimage.album.title}}</a> -
+        <a [routerLink]="['/user', favimage.album.owner._id]">{{favimage.album.owner.nick}}</a></p>
+      </div>
+    </div>
+  </div>
+  <!--<div class="col-sm-2 col-md-2">
+    <ng-adsense></ng-adsense>
+  </div>-->
+</div>
+  </div>
+  <div *ngIf="songs" class="col-sm-12 col-md-12">
+<p>Últimas canciones añadidas</p>
+<div class="row">
+  <div class="col-sm-6 col-md-2" *ngFor="let song of songs">
+    <div class="thumbnail song-item-home">
+      <img src="{{api_url + 'get-image-albumdisc/' + song.albumdisc.image}}" alt="{{song.albumdisc.name}}">
+      <div class="caption">
+        <h3>{{song.name}}</h3>
+        <p>Álbum: <a [routerLink]="['/albumdisc', song.albumdisc._id]">{{song.albumdisc.name}}</a></p>
+
+        <a class="btn btn-primary" (click)="startPlayer(song)">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--<div class="col-sm-2 col-md-2">
+    <ng-adsense></ng-adsense>
+  </div>-->
+</div>
+  </div>
+  <div *ngIf="favsongs" class="col-sm-12 col-md-12">
+<p>Canciones más votadas</p>
+<div class="row">
+  <div class="col-sm-6 col-md-2" *ngFor="let favsong of favsongs">
+    <div class="thumbnail song-item-home">
+      <img src="{{api_url + 'get-image-albumdisc/' + favsong.albumdisc.image}}" alt="{{favsong.albumdisc.name}}">
+      <div class="caption">
+        <h3>{{favsong.name}}</h3>
+        <p>Álbum: <a [routerLink]="['/albumdisc', favsong.albumdisc._id]">{{favsong.albumdisc.name}}</a></p>
+
+        <a class="btn btn-primary" (click)="startPlayer(favsong)">
+          <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--<div class="col-sm-2 col-md-2">
+    <ng-adsense></ng-adsense>
+  </div>-->
+</div>
+  </div>
+</div>
